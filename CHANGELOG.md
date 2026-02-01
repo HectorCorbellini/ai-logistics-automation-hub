@@ -1,0 +1,69 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [0.4.0] - 2026-02-01
+
+### Added
+- **Swagger/OpenAPI Documentation**: Integrated `springdoc-openapi` to provide automated, interactive API documentation and testing UI at `/swagger-ui.html`.
+- **API Annotations**: Annotated `SendController` and DTOs (`ExtractionRequest`, `AIResponse`, `ExtractionResponse`) with detailed Swagger descriptions for better developer experience.
+- **Final Verification**: Verified build success and passed all integration tests.
+
+## [0.3.1] - 2026-01-31
+
+### Fixed
+- **AI Response Parsing**: Fixed a crash where Grok AI returned Markdown code blocks (` ```json ... ``` `) by implementing logic to strip them before parsing.
+- **Dependency Conflicts**: Removed `org.json` dependency to resolve classpath conflicts with Spring Boot's Android JSON library.
+
+### Changed
+- **JSON Handling**: Refactored `AIService` to use Jackson (`ObjectMapper`) instead of `org.json` for consistent and robust JSON processing.
+- **Code Optimization**: Unified duplicate string formatting logic in `MessageFormatter` to improve maintainability.
+- **Constructor Injection**: Refactored ALL Controllers and Services to use Constructor Injection instead of Field Injection for better testability, immutability, and explicit dependencies.
+- **API Consolidation**: Moved `/api/ai/extract` endpoint to `/api/send/ai/extract` and removed redundant `AIController` for a unified API structure.
+
+## [0.3.0] - 2026-01-31
+
+### Added
+- **MessageFormatter Utility**: Created a centralized utility class for formatting extraction and AI responses.
+- **Project Documentation**: Enhanced README.md with architectural principles and classic project information.
+
+### Changed
+- **Code Refactoring**: Moved duplicate formatting logic from `EmailSenderService` and `SlackSenderService` to `MessageFormatter`.
+- **Test Improvements**: Updated test mocks to use the new `MessageFormatter` utility.
+
+### Removed
+- **Unused Dependencies**: Removed Lombok dependency as it wasn't being utilized in the project.
+- **Obsolete Mock Services**: Deleted `MockEmailSenderService` and `MockSlackSenderService` which were causing build issues.
+
+## [0.2.0] - 2026-01-31
+
+### Added
+- **Docker Support**: Added `Dockerfile` for containerization. Successfully built and ran the application in a container as part of final validation.
+- **Grok AI Integration**: Implemented `AIService` to connect to the Grok API for intelligent data extraction from raw text.
+- **AI Controller**: Added `AIController` with a new endpoint (`/api/ai/extract`) to expose AI functionality.
+- **New DTOs**: Created `ExtractionRequest` and `AIResponse` for handling AI data flow.
+- **End-to-End AI Testing**: Added an integration test (`AIServiceIntegrationTest`) to verify live calls to the Grok API.
+- **Project Planning**: Added `PLAN.md` and `GROK.md` to document project goals and AI implementation strategy.
+- **Changelog**: Created this `CHANGELOG.md` to track project progress.
+- **AI-Powered Sending**: Integrated `AIService` with `SendController` to create new endpoints (`/api/send/ai/email` and `/api/send/ai/slack`) for sending AI-extracted data.
+
+### Changed
+- **Improved Data Model**: Refactored the `Extraction` model and `ExtractionResponse` DTO to use `Double` for `totalAmount` instead of `String` for better data integrity.
+- **Enhanced Sender Services**: Updated `EmailSenderService` and `SlackSenderService` to handle `AIResponse` DTOs.
+
+### Fixed
+- **Final Validation**: Successfully completed all planned steps, including containerization and end-to-end testing.
+- **JSON Payload Format**: Corrected the request payload sent to the Grok API by using a `JSONArray` for the `messages` field, resolving a `400 Bad Request` error.
+- **JSON Deserialization**: Fixed a recurring `UnrecognizedPropertyException` during JSON parsing by adding an explicit `jackson-databind` dependency to the `pom.xml`, resolving classpath conflicts.
+- **Missing Dependency**: Added the `org.json` dependency to `pom.xml` to fix compilation errors in `AIService`.
+- **Test Dependencies**: Correctly configured mock beans in `SendControllerAIIntegrationTest` to resolve dependency injection issues.
+
+## [0.1.0] - 2026-01-26
+
+### Added
+- **Initial Project Setup**: Created the Spring Boot application with JPA, H2, and Web starters.
+- **Core Data Model**: Implemented the `Extraction` entity and repository.
+- **Email Integration**: Added `EmailSenderService` to send extraction data to a specified email address.
+- **Slack Integration**: Added `SlackSenderService` to send extraction data to a configured Slack webhook.
+- **REST API**: Created `SendController` to expose endpoints for triggering email and Slack notifications.
+- **Integration Tests**: Added initial integration tests for the `SendController` using mock services.
