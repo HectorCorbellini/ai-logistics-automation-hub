@@ -14,6 +14,16 @@ public class MessageFormatter {
     }
 
     private static String format(String company, String date, Double total) {
-        return String.format("Company: %s\nDate: %s\nTotal: %s", company, date, total);
+        return String.format(
+                "🚀 *AI Extraction Complete*\n" +
+                        "----------------------------\n" +
+                        "🏢 *Company*: %s\n" +
+                        "📅 *Date*: %s\n" +
+                        "💰 *Total Amount*: $%.2f\n" +
+                        "----------------------------\n" +
+                        "Processed by The API Bridge",
+                company != null ? company : "Unknown",
+                date != null ? date : "N/A",
+                total != null ? total : 0.0);
     }
 }

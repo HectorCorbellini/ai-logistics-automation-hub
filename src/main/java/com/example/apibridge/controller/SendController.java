@@ -37,8 +37,6 @@ public class SendController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Extraction not found")
     public ResponseEntity<String> sendToEmail(@PathVariable Long id, @RequestParam String to) {
         ExtractionResponse extraction = extractionFetchService.fetchExtractionById(id);
-        if (extraction == null)
-            return ResponseEntity.notFound().build();
         emailSenderService.sendExtractionByEmail(to, extraction);
         return ResponseEntity.ok("Sent to email");
     }
@@ -50,13 +48,7 @@ public class SendController {
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "Internal server error")
     public ResponseEntity<String> sendToSlack(@PathVariable Long id) {
         ExtractionResponse extraction = extractionFetchService.fetchExtractionById(id);
-        if (extraction == null)
-            return ResponseEntity.notFound().build();
-        try {
-            slackSenderService.sendExtractionToSlack(extraction);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Slack error: " + e.getMessage());
-        }
+        slackSenderService.sendExtractionToSlack(extraction);
         return ResponseEntity.ok("Sent to Slack");
     }
 

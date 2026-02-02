@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2026-02-02
+
+### Added
+- **Demo Utility**: Created `DemoController` with a `/api/demo/reset` endpoint to facilitate repeatable demonstrations.
+- **Global Error Handling**: Implemented `GlobalExceptionHandler` to ensure professional and consistent API error responses.
+- **Observability**: Added SLF4J logging to `AIService` for real-time monitoring during demo recordings.
+- **Demo Assets**: Added `demo-assets/sample-invoice.txt` for immediate use in demonstrations.
+
+### Changed
+- **Improved AI Robustness**: Enhanced `AIService` with strict input validation and refined prompting logic for more reliable data extraction.
+- **Unified Documentation**: Consolidated `PLAN-UPLOAD.md` and `PLAN-DEMO.md` into the main `PLAN.md` for better project clarity.
+- **Notification UX**: Refined `MessageFormatter` templates with professional layout and emojis for better visual impact in Slack and Email.
+
 ## [0.5.0] - 2026-02-01
 
 ### Added

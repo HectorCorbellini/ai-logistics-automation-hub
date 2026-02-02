@@ -55,41 +55,39 @@ This project follows a **Layered Architecture**, a well-established pattern that
 
 The project uses a **pragmatic and effective Layered Architecture**, which is the standard for Spring Boot applications. It successfully separates concerns and creates a maintainable structure.
 
+## The Nearshore Advantage
+
+Based in **Uruguay**, this project is developed within a **USA-aligned timezone (EST/EDT)**, ensuring high-bandwidth collaboration, cultural alignment, and real-time communication for North American partners.
+
 ## Prerequisites
 
 - Java 17
 - Maven 3.8+
 - Docker (for containerization)
-- A valid Grok AI API key
+- A valid Grok AI API key (Groq)
 
 ## Getting Started
 
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/HectorCorbellini/ai-logistics-automation-hub.git
 cd Project_2
 ```
 
 ### 2. Configure the Application
 
-Open `src/main/resources/application.properties` and configure the following:
+The application uses `src/main/resources/application.yml` for configuration. It is designed to pull sensitive credentials from environment variables for security.
 
-- **Grok AI**: Set your API key.
-  ```properties
-  groq.api.key=YOUR_GROQ_API_KEY
-  ```
-- **Email**: Configure your SMTP server details.
-  ```properties
-  spring.mail.host=smtp.example.com
-  spring.mail.port=587
-  spring.mail.username=your@email.com
-  spring.mail.password=yourpassword
-  ```
-- **Slack**: Set your Slack webhook URL.
-  ```properties
-  slack.webhook.url=https://hooks.slack.com/services/your/webhook/url
-  ```
+#### Recommended: Set Environment Variables
+Set the following variables in your environment:
+- `GROQ_API_KEY`: Your Groq API key.
+- `EMAIL_USERNAME`: Your SMTP email username.
+- `EMAIL_PASSWORD`: Your SMTP email password (or App Password).
+- `SLACK_WEBHOOK_URL`: Your Slack Incoming Webhook URL.
+
+#### Alternative: Local YAML (Not Recommended for Git)
+You can directly edit `application.yml` for local testing, but ensure you do not commit these changes. The project includes a robust `.gitignore` to help prevent accidental leaks.
 
 ### 3. Build and Run
 

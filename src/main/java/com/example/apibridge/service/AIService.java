@@ -11,9 +11,13 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class AIService {
+
+    private static final Logger log = LoggerFactory.getLogger(AIService.class);
 
     private final String groqApiKey;
     private final String groqModel;
@@ -30,7 +34,14 @@ public class AIService {
     }
 
     public AIResponse extractData(ExtractionRequest request) {
-        String prompt = "Extract the company name, date, and total amount from the following text. Respond with a JSON object containing the fields 'companyName', 'date', and 'totalAmount'.\n\nText: "
+        log.info("Starting AI extraction for text length: {}", request.getText().length());
+
+        if (request == null || request.getText() == null || request.getText().trim().isEmpty()) {
+            log.error("Aborting: Input text is empty");
+            throw new IllegalArgumentException("Input text cannot be empty for AI extraction.");
+        }
+
+        String prompt = "Extract the company name, date, and total amount from the following text. Respond ONLY with a valid JSON object containing the fields 'companyName', 'date', and 'totalAmount'. If a field is not found, use null.\n\nText: "
                 + request.getText();
 
         HttpHeaders headers = new HttpHeaders();
@@ -44,18 +55,18 @@ public class AIService {
         messages.addObject()
                 .put("role", "system")
                 .put("content",
-                        "You are a helpful assistant that extracts information from text and returns it in JSON format.");
+                        "You are a specialized data extraction assistant. You always respond with pure JSON, no conversational text.");
         messages.addObject()
                 .put("role", "user")
                 .put("content", prompt);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
 
-        String response = restTemplate.postForObject(groqApiUrl, entity, String.class);
-
-        System.out.println("Raw AI Response: " + response);
-
         try {
+            log.info("Calling Groq API (Model: {})...", groqModel);
+            String response = restTemplate.postForObject(groqApiUrl, entity, String.class);
+            log.info("Groq API call successful.");
+
             com.fasterxml.jackson.databind.JsonNode rootNode = objectMapper.readTree(response);
             String content = rootNode.path("choices").get(0).path("message").path("content").asText();
 
@@ -71,9 +82,12 @@ public class AIService {
             // Trim whitespace
             content = content.trim();
 
-            return objectMapper.readValue(content, AIResponse.class);
+            AIResponse result = objectMapper.readValue(content, AIResponse.class);
+            log.info("Successfully extracted data for company: {}", result.getCompanyName());
+            return result;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to parse AI response", e);
+            log.error("AI Extraction failed: {}", e.getMessage());
+            throw new RuntimeException("AI Extraction failed: " + e.getMessage(), e);
         }
     }
 }

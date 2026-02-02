@@ -28,6 +28,6 @@ public class ExtractionFetchService {
     public ExtractionResponse fetchExtractionById(Long id) {
         return extractionRepository.findById(id)
                 .map(extractionMapper::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("Extraction not found with ID: " + id));
     }
 }
