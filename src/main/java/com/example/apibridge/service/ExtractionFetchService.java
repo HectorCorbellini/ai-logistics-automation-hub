@@ -1,6 +1,7 @@
 package com.example.apibridge.service;
 
 import com.example.apibridge.dto.ExtractionResponse;
+import com.example.apibridge.exception.ResourceNotFoundException;
 import com.example.apibridge.mapper.ExtractionMapper;
 import com.example.apibridge.model.Extraction;
 import com.example.apibridge.repository.ExtractionRepository;

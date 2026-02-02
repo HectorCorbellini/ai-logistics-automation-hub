@@ -10,6 +10,14 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(NotificationException.class)
+    public ResponseEntity<Map<String, String>> handleNotificationException(NotificationException e) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Notification Failed");
+        error.put("message", e.getMessage());
+        return ResponseEntity.status(502).body(error); // Bad Gateway - External service issue
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException e) {
         Map<String, String> error = new HashMap<>();

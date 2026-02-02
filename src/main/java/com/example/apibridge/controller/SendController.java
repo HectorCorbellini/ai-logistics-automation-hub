@@ -76,11 +76,7 @@ public class SendController {
         if (aiResponse == null)
             return ResponseEntity.badRequest().body("Failed to extract data from text.");
 
-        try {
-            slackSenderService.sendAIExtractionToSlack(aiResponse);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Slack error: " + e.getMessage());
-        }
+        slackSenderService.sendAIExtractionToSlack(aiResponse);
         return ResponseEntity.ok("Sent AI extraction to Slack");
     }
 
