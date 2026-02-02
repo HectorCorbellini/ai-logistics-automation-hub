@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2026-02-01
+
+### Added
+- **Production Security**: Migrated configuration to `application.yml` with environment variable support for all sensitive credentials (Groq API, Email, Slack).
+- **Repository Files**: Added MIT `LICENSE` and `CONTRIBUTING.md` for professional open-source standards.
+- **Git Protection**: Created comprehensive `.gitignore` to prevent accidental exposure of secrets and build artifacts.
+
+### Changed
+- **Configuration Migration**: Replaced `application.properties` with `application.yml` using `${ENV_VAR}` placeholders for all credentials.
+- **Documentation**: Updated `README.md` to remove redundant API endpoint listings (now covered by Swagger UI).
+
+### Removed
+- **Insecure Configuration**: Deleted `application.properties` containing hardcoded credentials.
+
 ## [0.4.0] - 2026-02-01
 
 ### Added
