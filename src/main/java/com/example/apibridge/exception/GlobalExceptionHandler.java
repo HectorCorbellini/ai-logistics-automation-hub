@@ -18,6 +18,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(502).body(error); // Bad Gateway - External service issue
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException e) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Bad Request");
+        error.put("message", e.getMessage());
+        return ResponseEntity.status(400).body(error);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException e) {
         Map<String, String> error = new HashMap<>();

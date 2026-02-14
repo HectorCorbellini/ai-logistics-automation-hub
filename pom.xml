@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.example</groupId>
-    <artifactId>apibridge</artifactId>
+    <artifactId>autom-hub</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>The API Bridge</name>
-    <description>Bridge legacy system results to modern tools (Slack, Email)</description>
+    <name>AI Logistics Automation Hub</name>
+    <description>AI-driven automation pipeline for the logistics industry.</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>

@@ -1,4 +1,4 @@
-# The API Bridge
+# AI Logistics Automation Hub
 
 ## Overview
 
@@ -72,7 +72,7 @@ Based in **Uruguay**, this project is developed within a **USA-aligned timezone 
 
 ```bash
 git clone https://github.com/HectorCorbellini/ai-logistics-automation-hub.git
-cd Project_2
+cd automation-hub
 ```
 
 ### 2. Configure the Application

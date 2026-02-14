@@ -38,6 +38,12 @@ public class SendControllerAIIntegrationTest {
     @MockBean
     private ExtractionFetchService extractionFetchService;
 
+    @MockBean
+    private com.example.apibridge.repository.ExtractionRepository extractionRepository;
+
+    @MockBean
+    private com.example.apibridge.mapper.ExtractionMapper extractionMapper;
+
     @Autowired
     private ObjectMapper objectMapper;
 

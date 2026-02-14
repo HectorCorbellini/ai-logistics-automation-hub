@@ -19,16 +19,22 @@ public class SendController {
     private final EmailSenderService emailSenderService;
     private final SlackSenderService slackSenderService;
     private final AIService aiService;
+    private final com.example.apibridge.repository.ExtractionRepository extractionRepository;
+    private final com.example.apibridge.mapper.ExtractionMapper extractionMapper;
 
     @Autowired
     public SendController(ExtractionFetchService extractionFetchService,
             EmailSenderService emailSenderService,
             SlackSenderService slackSenderService,
-            AIService aiService) {
+            AIService aiService,
+            com.example.apibridge.repository.ExtractionRepository extractionRepository,
+            com.example.apibridge.mapper.ExtractionMapper extractionMapper) {
         this.extractionFetchService = extractionFetchService;
         this.emailSenderService = emailSenderService;
         this.slackSenderService = slackSenderService;
         this.aiService = aiService;
+        this.extractionRepository = extractionRepository;
+        this.extractionMapper = extractionMapper;
     }
 
     @PostMapping("/email/{id}")
@@ -62,6 +68,9 @@ public class SendController {
         if (aiResponse == null)
             return ResponseEntity.badRequest().body("Failed to extract data from text.");
 
+        // Persist for demo purposes
+        extractionRepository.save(extractionMapper.toEntity(aiResponse));
+
         emailSenderService.sendAIExtractionByEmail(to, aiResponse);
         return ResponseEntity.ok("Sent AI extraction to email");
     }
@@ -76,6 +85,9 @@ public class SendController {
         if (aiResponse == null)
             return ResponseEntity.badRequest().body("Failed to extract data from text.");
 
+        // Persist for demo purposes
+        extractionRepository.save(extractionMapper.toEntity(aiResponse));
+
         slackSenderService.sendAIExtractionToSlack(aiResponse);
         return ResponseEntity.ok("Sent AI extraction to Slack");
     }
@@ -88,6 +100,10 @@ public class SendController {
         AIResponse aiResponse = aiService.extractData(request);
         if (aiResponse == null)
             return ResponseEntity.badRequest().build();
+
+        // Persist for demo purposes
+        extractionRepository.save(extractionMapper.toEntity(aiResponse));
+
         return ResponseEntity.ok(aiResponse);
     }
 }

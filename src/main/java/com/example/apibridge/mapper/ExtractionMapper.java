@@ -14,4 +14,12 @@ public class ExtractionMapper {
         dto.setTotalAmount(extraction.getTotalAmount());
         return dto;
     }
+
+    public Extraction toEntity(com.example.apibridge.dto.AIResponse aiResponse) {
+        Extraction extraction = new Extraction();
+        extraction.setCompanyName(aiResponse.getCompanyName());
+        extraction.setDate(aiResponse.getDate());
+        extraction.setTotalAmount(aiResponse.getTotalAmount());
+        return extraction;
+    }
 }

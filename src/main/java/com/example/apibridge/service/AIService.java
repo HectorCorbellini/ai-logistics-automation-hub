@@ -22,15 +22,17 @@ public class AIService {
     private final String groqApiKey;
     private final String groqModel;
     private final String groqApiUrl;
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public AIService(@Value("${groq.api.key}") String groqApiKey,
             @Value("${groq.model}") String groqModel,
-            @Value("${groq.api.url}") String groqApiUrl) {
+            @Value("${groq.api.url}") String groqApiUrl,
+            RestTemplate restTemplate) {
         this.groqApiKey = groqApiKey;
         this.groqModel = groqModel;
         this.groqApiUrl = groqApiUrl;
+        this.restTemplate = restTemplate;
     }
 
     public AIResponse extractData(ExtractionRequest request) {
