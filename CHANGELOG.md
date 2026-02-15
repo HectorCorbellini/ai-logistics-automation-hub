@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file.
 ## [0.3.1] - 2026-01-31
 
 ### Fixed
-- **AI Response Parsing**: Fixed a crash where Grok AI returned Markdown code blocks (` ```json ... ``` `) by implementing logic to strip them before parsing.
+- **AI Response Parsing**: Fixed a crash where Groq AI returned Markdown code blocks (` ```json ... ``` `) by implementing logic to strip them before parsing.
 - **Dependency Conflicts**: Removed `org.json` dependency to resolve classpath conflicts with Spring Boot's Android JSON library.
 
 ### Changed
@@ -66,10 +66,10 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **Docker Support**: Added `Dockerfile` for containerization. Successfully built and ran the application in a container as part of final validation.
-- **Grok AI Integration**: Implemented `AIService` to connect to the Grok API for intelligent data extraction from raw text.
+- **Groq AI Integration**: Implemented `AIService` to connect to the Groq API for intelligent data extraction from raw text.
 - **AI Controller**: Added `AIController` with a new endpoint (`/api/ai/extract`) to expose AI functionality.
 - **New DTOs**: Created `ExtractionRequest` and `AIResponse` for handling AI data flow.
-- **End-to-End AI Testing**: Added an integration test (`AIServiceIntegrationTest`) to verify live calls to the Grok API.
+- **End-to-End AI Testing**: Added an integration test (`AIServiceIntegrationTest`) to verify live calls to the Groq API.
 - **Project Planning**: Added `PLAN.md` and `GROK.md` to document project goals and AI implementation strategy.
 - **Changelog**: Created this `CHANGELOG.md` to track project progress.
 - **AI-Powered Sending**: Integrated `AIService` with `SendController` to create new endpoints (`/api/send/ai/email` and `/api/send/ai/slack`) for sending AI-extracted data.
@@ -80,7 +80,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - **Final Validation**: Successfully completed all planned steps, including containerization and end-to-end testing.
-- **JSON Payload Format**: Corrected the request payload sent to the Grok API by using a `JSONArray` for the `messages` field, resolving a `400 Bad Request` error.
+- **JSON Payload Format**: Corrected the request payload sent to the Groq API by using a `JSONArray` for the `messages` field, resolving a `400 Bad Request` error.
 - **JSON Deserialization**: Fixed a recurring `UnrecognizedPropertyException` during JSON parsing by adding an explicit `jackson-databind` dependency to the `pom.xml`, resolving classpath conflicts.
 - **Missing Dependency**: Added the `org.json` dependency to `pom.xml` to fix compilation errors in `AIService`.
 - **Test Dependencies**: Correctly configured mock beans in `SendControllerAIIntegrationTest` to resolve dependency injection issues.

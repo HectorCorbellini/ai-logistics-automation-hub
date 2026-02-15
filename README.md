@@ -2,11 +2,11 @@
 
 ## Overview
 
-The API Bridge connects a legacy system's data output to modern communication platforms like Slack and email. It features an AI-driven data extraction layer powered by Grok AI to intelligently parse and structure raw text for seamless integration.
+The API Bridge connects a legacy system's data output to modern communication platforms like Slack and email. It features an AI-driven data extraction layer powered by Groq AI to intelligently parse and structure raw text for seamless integration.
 
 ## Features
 
-- **AI-Powered Data Extraction**: Uses Grok AI to extract structured data (company name, date, total amount) from unstructured text.
+- **AI-Powered Data Extraction**: Uses Groq AI to extract structured data (company name, date, total amount) from unstructured text.
 - **Email Integration**: Sends extracted data to any email address.
 - **Slack Integration**: Sends extracted data to a configured Slack channel.
 - **RESTful API**: Exposes endpoints for both database-driven and AI-driven data sending.
@@ -64,7 +64,7 @@ Based in **Uruguay**, this project is developed within a **USA-aligned timezone 
 - Java 17
 - Maven 3.8+
 - Docker (for containerization)
-- A valid Grok AI API key (Groq)
+- A valid Groq API key
 
 ## Getting Started
 
